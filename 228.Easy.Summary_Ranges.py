@@ -6,12 +6,13 @@ class Solution:
             return nums
         head = tail = 0
         new = []
+        gr = self.getRange
         while tail < len(nums) - 1:
             if nums[tail + 1] != nums[tail] + 1:
-                new.append(self.getRange(nums[head], nums[tail]))
+                new.append(gr(nums[head], nums[tail]))
                 head = tail + 1
             tail += 1
-        new.append(self.getRange(nums[head], nums[tail]))
+        new.append(gr(nums[head], nums[tail]))
         return new
             
     def getRange(self, head, tail):
