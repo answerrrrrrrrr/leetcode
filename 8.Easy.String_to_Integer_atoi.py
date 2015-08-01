@@ -3,22 +3,19 @@ class Solution:
     # @return {integer}
     def myAtoi(self, str):
         str = str.strip()
-        digits = '1234567890'
-        valid = digits + '-+'
         num = ''
         result = 0
-        for i in xrange(len(str)):
-            if str[i] not in valid:
-                break
-            if i < len(str) - 1 and str[i] in '-+' and str[i+1] not in digits:
-                break
-            if str[i] in digits:
+        
+        if str and str[0] in '-+':
+            num += str[0]
+        for i in xrange(1, len(str)):
+            if str[i].isdigit():
                 num += str[i]
-                if str[i-1] == '-':
-                    num = '-' + num
-                if i == len(str) - 1 or str[i+1] not in digits:
-                    result = int(num)
-                    break
+            else:
+                break
+
+        if len(num) > 1:
+            result = int(num)
 
         if  result > 2147483647:
             return 2147483647
