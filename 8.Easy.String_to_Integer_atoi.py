@@ -1,27 +1,18 @@
 class Solution:
-    # @param {string} str
-    # @return {integer}
+    # @return an integer
     def myAtoi(self, str):
         str = str.strip()
-        num = '0' # Amazing
-        l = 0
-        result = 0
+        str = re.findall('(^[\+-]?\d+)\D*', str)
 
-        if str and str[0] in '-+':
-            num = str[0]
-            l = 1
-        for i in xrange(l, len(str)):
-            if str[i].isdigit():
-                num += str[i]
+        try:
+            result = int(''.join(str))
+            MAX_INT = 2147483647
+            MIN_INT = -2147483648
+            if result > MAX_INT > 0:
+                return MAX_INT
+            elif result < MIN_INT < 0:
+                return MIN_INT
             else:
-                break
-
-        if len(num) > 1:
-            result = int(num)
-
-        if  result > 2147483647:
-            return 2147483647
-        elif result < -2147483648:
-            return -2147483648
-        else:
-            return result
+                return result
+        except:
+            return 0
