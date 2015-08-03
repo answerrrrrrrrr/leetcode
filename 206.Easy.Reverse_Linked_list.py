@@ -8,7 +8,23 @@ class Solution:
     # @param {ListNode} head
     # @return {ListNode}
     def reverseList(self, head):
-        last = None
-        while head:
-            head.next, last, head = last, head, head.next
-        return last
+        # Iterative Solution
+        # last = None
+        # while head:
+        #     head.next, last, head = last, head, head.next
+        # return last
+
+
+
+
+
+        # Recursive Solution:
+        if head is None:
+            return None
+        if head.next is None:
+            return head
+        p = head.next
+        rHead = self.reverseList(head.next)
+        head.next = None
+        p.next = head
+        return rHead
