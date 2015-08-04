@@ -9,12 +9,22 @@ class Solution:
     # @param {integer} val
     # @return {ListNode}
     def removeElements(self, head, val):
-        dummy = ListNode(-1)
-        dummy.next = head
-        p = dummy
-        while p.next:
-            if p.next.val == val:
-                p.next = p.next.next
-            else:
-                p= p.next
-        return dummy.next
+        # dummy = ListNode(-1)
+        # dummy.next = head
+        # p = dummy
+        # while p.next:
+        #     if p.next.val == val:
+        #         p.next = p.next.next
+        #     else:
+        #         p= p.next
+        # return dummy.next
+
+
+
+        # Recursive Solution
+        if not head:
+            return head
+        head.next = removeElements(head.next, val)
+        return head.next if head.val == val else head
+        # RuntimeError: maximum recursion depth exceeded
+        # Works in local environment
