@@ -9,13 +9,27 @@ class Solution:
     # @param {integer} n
     # @return {ListNode}
     def removeNthFromEnd(self, head, n):
-        p = q = head
+        # p = q = head
+        # while n:
+        #     q = q.next
+        #     n -= 1
+        # if not q: # n == len, remove head
+        #     return head.next
+        # while q.next:
+        #     p, q = p.next, q.next
+        # p.next = p.next.next
+        # return head
+
+
+
+        # dummy
+        dummy = ListNode(-1)
+        dummy.next = head
+        p = q = dummy
         while n:
             q = q.next
             n -= 1
-        if not q: # n == len, remove head
-            return head.next
         while q.next:
             p, q = p.next, q.next
         p.next = p.next.next
-        return head
+        return dummy.next
