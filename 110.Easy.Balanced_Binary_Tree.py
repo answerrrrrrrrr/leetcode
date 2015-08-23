@@ -38,3 +38,30 @@ class Solution(object):
         rd, rb = db(root.right)
         return 1 + max(ld, rd), lb and rb and abs(ld-rd)<=1
 
+
+
+    # https://leetcode.com/discuss/42970/my-python-solution-with-horrible-run-time?show=44490#a44490
+    
+
+
+    # Wrong Answer
+    # Balanced BT is not Complete BT
+    '''
+        if not root:
+            return True
+        stack = [(root, 0)]
+        res = []
+        while stack:
+            node, level = stack.pop(0)
+            if node:
+                if len(res) < level+1:
+                    res.append([])
+                res[level].append(1)
+                if node.left:
+                    stack.append((node.left, level+1))
+                if node.right:
+                    stack.append((node.right, level+1))
+        if len(res) < 3:
+            return True
+        return False if sum(res[-2]) < 2**(len(res) - 2) else True
+    '''
