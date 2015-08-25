@@ -23,13 +23,50 @@ class Solution:
 
 # https://leetcode.com/discuss/44959/3-lines-with-o-1-space-1-liners-alternatives        
     # Simplified
+    # 126ms
         while (root.val - p.val)*(root.val - q.val) > 0:
             # root = (root.left, root.right)[p.val > root.val]
             root = root.right if p.val > root.val else root.left
         return root
 
-    # Other way
+    # 140ms
         a, b = sorted([p.val, q.val])
         while not a <= root.val <= b:
             root = (root.left, root.right)[a > root.val]
         return root
+
+
+
+    # rcs
+    # 128ms
+        if p.val < root.val > q.val:
+            return self.lowestCommonAncestor(root.left, p, q)
+        if p.val > root.val < q.val:
+            return self.lowestCommonAncestor(root.right, p, q)
+        return root
+
+    # Trick 1
+        next = p.val < root.val > q.val and root.left \
+            or p.val > root.val < q.val and root.right
+        return self.lowestCommonAncestor(next, p, q) if next else root
+        
+    # Trick 2
+        return root if (root.val - p.val) * (root.val - q.val) < 1 else \
+            self.lowestCommonAncestor((root.left, root.right)[p.val > root.val], p, q)
+    # Trick 2'
+        return self.lowestCommonAncestor((root.left, root.right)[p.val > root.val], p, q) \
+            if (root.val - p.val)*(root.val - q.val) > 0 else root
+
+
+
+
+
+
+
+
+
+
+
+
+
+
