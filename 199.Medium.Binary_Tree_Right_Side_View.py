@@ -42,17 +42,18 @@ class Solution(object):
 
 
 # https://leetcode.com/discuss/40262/5-9-lines-python-48-ms
-    # DFS rcs --- internal def
+    # DFS rcs --- internal def 
+    # [NOTE]:Try NOT to do this(def in def)
     # 60ms
-        def dfs(node, level):
-            if node:
-                if len(res) == level:
-                    res.append(node.val)
-                dfs(node.right, level+1)
-                dfs(node.left, level+1)
-        res = []
-        dfs(root, 0)
-        return res
+        # def dfs(node, level):
+        #     if node:
+        #         if len(res) == level:
+        #             res.append(node.val)
+        #         dfs(node.right, level+1)
+        #         dfs(node.left, level+1)
+        # res = []
+        # dfs(root, 0)
+        # return res
 
     # Optimized rcs
     # 60ms
