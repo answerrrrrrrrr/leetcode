@@ -54,7 +54,42 @@ class Solution(object):
                 start = i-maxLen
                 maxLen += 1
         return s[start:start+maxLen]
-        
+
+
+
+# Manacher Algorithm
+# https://leetcode.com/discuss/28791/manacher-algorithm-in-python-o-n
+# https://leetcode.com/discuss/16470/my-ac-python-solution-manachers-algorithm
+    # O(n)
+    # 112ms
+        # Transform s into t.
+        # For example, s = "abba", t = "^#a#b#b#a#$".
+        # ^ and $ signs are sentinels appended to each end to avoid bounds checking
+        t = '#'.join('^{}$'.format(s))
+        n = len(t)
+        p = [0] * n
+        c = r = 0
+        maxLen, center = 0, 0
+        for i in xrange(1, n-1):
+            p[i] = (r > i) and min(r-i, p[2*c-i])
+            while t[i-p[i]-1] == t[i+p[i]+1]:
+                p[i] += 1 
+            if r < i+p[i]:
+                c, r = i, i+p[i]
+                if maxLen < p[i]:
+                    maxLen, center = p[i], i
+        return s[(center-maxLen)/2:(center+maxLen)/2]
+
+
+
+
+
+
+
+
+
+
+
 
 
 
