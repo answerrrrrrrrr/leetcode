@@ -26,18 +26,35 @@ class Solution(object):
     # 208ms
         ret = ''
         n = len(s)
-        span = 1
+        radius = 1
         for i in xrange(n):
             for k in range(2):
-                span -= 1 # 
-                while i-span >= 0 and i+k+span < n and s[i-span:i +1] == s[i+k:i+k+span +1][::-1]:
-                    span += 1
-                subs = s[i-span +1:i+k+span]
+                radius -= 1 # 
+                while i-radius >= 0 and i+k+radius < n and s[i-radius:i +1] == s[i+k:i+k+radius +1][::-1]:
+                    radius += 1
+                subs = s[i-radius +1:i+k+radius]
                 if len(subs) > len(ret):
                     ret = subs
         return ret
 
 
+
+# https://leetcode.com/discuss/21332/python-o-n-2-method-with-some-optimization-88ms
+    # O(n^2), Almost O(n)
+    # Traverse, slice backward-only, without subs assignment
+    # 100ms
+        start = 0
+        maxLen = 1
+        for i in xrange(len(s)):
+            if i-maxLen-1 >= 0 and s[i-maxLen-1:i +1] == s[i-maxLen-1:i +1][::-1]:
+                start = i-maxLen-1
+                maxLen += 2
+                continue
+            if i-maxLen >= 0 and s[i-maxLen:i +1] == s[i-maxLen:i +1][::-1]:
+                start = i-maxLen
+                maxLen += 1
+        return s[start:start+maxLen]
+        
 
 
 
