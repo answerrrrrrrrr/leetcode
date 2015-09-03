@@ -9,7 +9,6 @@ class Solution(object):
         res = []
         temp = None
         while p < q-1:
-
             l, s[p] = s[p], None
             r, s[q] = s[q], None
             c = -(l + r)
@@ -28,20 +27,4 @@ class Solution(object):
                 p -= 1
                 s[p] = temp
                 temp = None
-
         return res
-
-def testCases():
-
-    nums = [-2,-1,-1,0,1,1,2]
-
-
-    sol = Solution()
-    sol.threeSum(nums)
-
-def main():
-    testCases()
-    
-
-if __name__ == "__main__":
-    main()
