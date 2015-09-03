@@ -4,36 +4,38 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        s = sorted(nums)
-        p, q = 0, len(s)-1
+        
+        nums.sort()
+        n = len(nums)
         res = []
-        temp = None
-        while p < q-1:
-
-            l, s[p] = s[p], None
-            r, s[q] = s[q], None
-            c = -(l + r)
-            print (l,c,r)
-            if c in s and [l, c, r] not in res :
-                res.append([l, c, r])
-            if c < 0:
-                s[p] = l
-                q -= 1
-            else:
-                s[q] = r
-                p += 1
-                if c == 0:
-                    temp = l
-            if temp and -temp not in s:
-                p -= 1
-                s[p] = temp
-                temp = None
-
+        for i in range(n-2):
+            if i > 0 and nums[i-1] == nums[i]:
+                continue
+            j, k = i+1, n-1
+            while j < k:
+                s = nums[i] + nums[j] + nums[k]
+                if s > 0:
+                    k -= 1
+                elif s < 0:
+                    j += 1
+                else:
+                    res.append((nums[i], nums[j], nums[k]))
+                    while j < k and nums[k-1] == nums[k]:
+                        k -= 1
+                    while j < k and nums[j+1] == nums[j]:
+                        j += 1
+                    k -= 1; j += 1
         return res
 
 def testCases():
 
-    nums = [-2,-1,-1,0,1,1,2]
+    nums = [-4,-2,0,1,2,4]
+    # Input:
+    # [-4,-2,-2,-2,0,1,2,2,2,3,3,4,4,6,6]
+    # Output:
+    # [[-4,-2,6],[-4,0,4],[-2,-2,4],[-4,1,3],[-2,0,2]]
+    # Expected:
+    # [[-4,-2,6],[-4,0,4],[-4,1,3],[-4,2,2],[-2,-2,4],[-2,0,2]]
 
 
     sol = Solution()
