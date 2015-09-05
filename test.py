@@ -1,45 +1,32 @@
 class Solution(object):
-    def threeSum(self, nums):
+    def diffWaysToCompute(self, input):
         """
-        :type nums: List[int]
-        :rtype: List[List[int]]
+        :type input: str
+        :rtype: List[int]
         """
-        
-        nums.sort()
-        n = len(nums)
-        res = []
-        for i in range(n-2):
-            if i > 0 and nums[i-1] == nums[i]:
-                continue
-            j, k = i+1, n-1
-            while j < k:
-                s = nums[i] + nums[j] + nums[k]
-                if s > 0:
-                    k -= 1
-                elif s < 0:
-                    j += 1
-                else:
-                    res.append((nums[i], nums[j], nums[k]))
-                    while j < k and nums[k-1] == nums[k]:
-                        k -= 1
-                    while j < k and nums[j+1] == nums[j]:
-                        j += 1
-                    k -= 1; j += 1
-        return res
+
+        import re,operator
+        tokens = re.split('(\D)', input)
+        nums = map(int, tokens[::2])
+        ops = map({'+': operator.add, '-': operator.sub, '*': operator.mul}.get, tokens[1::2])
+        def build(lo, hi):
+            if lo == hi:
+                return [nums[lo]]
+            # return [ops[i](a, b)
+            #         for i in xrange(lo, hi)
+            #         for a in build(lo, i)
+            #         for b in build(i + 1, hi)]
+            for i in xrange(lo, hi):
+                print 'i=%d:' % i
+        return build(0, len(nums) - 1)
 
 def testCases():
 
-    nums = [-4,-2,0,1,2,4]
-    # Input:
-    # [-4,-2,-2,-2,0,1,2,2,2,3,3,4,4,6,6]
-    # Output:
-    # [[-4,-2,6],[-4,0,4],[-2,-2,4],[-4,1,3],[-2,0,2]]
-    # Expected:
-    # [[-4,-2,6],[-4,0,4],[-4,1,3],[-4,2,2],[-2,-2,4],[-2,0,2]]
+    i = '4-1-1-1'
 
 
     sol = Solution()
-    sol.threeSum(nums)
+    sol.diffWaysToCompute(i)
 
 def main():
     testCases()
