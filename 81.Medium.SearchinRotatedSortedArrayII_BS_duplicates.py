@@ -5,9 +5,11 @@ class Solution(object):
         :type target: int
         :rtype: bool
         """
+# https://leetcode.com/discuss/223/when-there-are-duplicates-the-worst-case-is-could-we-do-better
+# https://leetcode.com/discuss/50068/python-easy-to-understand-solution-with-comments
         l, r = 0, len(nums)-1
         while l <= r:
-            mid = l + (r-l)//2
+            mid = (l + r)/2
             if nums[mid] == target:
                 return True
             while l < mid and nums[l] == nums[mid]: # tricky part
