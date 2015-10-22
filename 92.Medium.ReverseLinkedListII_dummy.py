@@ -12,19 +12,11 @@ class Solution(object):
         :type n: int
         :rtype: ListNode
         """ 
-        dummy = pre = ListNode(0)
-        dummy.next = head
+        dummy = p = ListNode(0)
+        p.next = head
         for _ in xrange(m-1):
-            pre = pre.next
-        cur= pre.next
-        # reverse the defined part 
-        node = None
-        for _ in xrange(n-m+1):
-            nxt = cur.next
-            cur.next = node
-            node = cur
-            cur= nxt
-        # connect three parts
-        pre.next.next = cur
-        pre.next = node
+            p = p.next
+        q = p.next
+        for _ in xrange(n-m):
+            p.next, q.next.next, q.next = q.next, p.next, q.next.next
         return dummy.next
