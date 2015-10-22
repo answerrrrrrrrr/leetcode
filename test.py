@@ -1,32 +1,22 @@
-class Solution(object):
-    def diffWaysToCompute(self, input):
-        """
-        :type input: str
-        :rtype: List[int]
-        """
-
-        import re,operator
-        tokens = re.split('(\D)', input)
-        nums = map(int, tokens[::2])
-        ops = map({'+': operator.add, '-': operator.sub, '*': operator.mul}.get, tokens[1::2])
-        def build(lo, hi):
-            if lo == hi:
-                return [nums[lo]]
-            # return [ops[i](a, b)
-            #         for i in xrange(lo, hi)
-            #         for a in build(lo, i)
-            #         for b in build(i + 1, hi)]
-            for i in xrange(lo, hi):
-                print 'i=%d:' % i
-        return build(0, len(nums) - 1)
+class Solution:
+    # @param num, a list of integer
+    # @return a list of lists of integer
+    def test(self, S):
+        res = [[]]
+        S.sort()
+        for i in range(len(S)):
+            if i == 0 or S[i] != S[i - 1]:
+                l = len(res)
+            print l
+            for j in range(len(res) - l, len(res)):
+                res.append(res[j] + [S[i]])
+        return res
 
 def testCases():
 
-    i = '4-1-1-1'
-
-
+    i = [1,1,2,2]
     sol = Solution()
-    sol.diffWaysToCompute(i)
+    sol.test(i)
 
 def main():
     testCases()
