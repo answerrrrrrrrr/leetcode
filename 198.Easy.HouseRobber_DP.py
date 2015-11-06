@@ -6,8 +6,8 @@ class Solution:
         if not nums:
             return 0
         n = len(nums)
-        if n <= 2:
-            return max(nums[0], nums[1])
+        if n == 1:
+            return nums[0]
         res = [0] * n
         res[0], res[1] = nums[0], max(nums[0], nums[1])
         for i in xrange(2, n):
@@ -20,11 +20,12 @@ class Solution:
         if not nums:
             return 0
         n = len(nums)
-        if n <= 2:
-            return max(nums)
+        if n == 1:
+            return nums[0]
         a, b = nums[0], max(nums[0], nums[1])
         for i in xrange(2, n):
             a, b = b, max(a + nums[i], b)
+        return b
 
 
 
