@@ -12,4 +12,12 @@ class Solution:
 
 
 
+    # zip, set
         return len(set(zip(s, t))) == len(set(s)) == len(set(t))
+
+
+
+    # str.find
+        return map(s.find, s) == map(t.find, t)
+
+# https://leetcode.com/discuss/48674/python-different-solutions-dictionary-etc
