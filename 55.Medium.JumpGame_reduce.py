@@ -8,7 +8,7 @@ class Solution(object):
     # going forwards
     # 52ms
         m = 0
-        for i, e in nums:
+        for i, e in enumerate(nums):
             if i > m:
                 return False
             m = max(m, i+e)
