@@ -10,6 +10,51 @@ class Solution(object):
         :type lists: List[ListNode]
         :rtype: ListNode
         """
+    # https://leetcode.com/discuss/72007/three-ways-solve-problem-python-build-merge-priority-queue
+    # Divide & Conquer
+    # 160ms, 39.82%
+        def merge(l, r):
+            dummy = p = ListNode(0)
+            while l and r:
+                if l.val < r.val:
+                    p.next = l 
+                    l = l.next
+                else:
+                    p.next = r 
+                    r = r.next
+                p = p.next
+            p.next = l if l else r 
+            return dummy.next
+        if not lists:
+            return
+        if len(lists) == 1:
+            return lists[0]
+        m = len(lists)/2 
+        l = self.mergeKLists(lists[:m])
+        r = self.mergeKLists(lists[m:])
+        return merge(l, r)
+
+
+
+    # https://leetcode.com/discuss/55662/108ms-python-solution-with-heapq-and-avoid-changing-heap-size
+    # heapq
+    # 108ms, 94.53%
+        from heapq import heappush, heappop, heapreplace, heapify
+        dummy = node = ListNode(0)
+        h = [(n.val, n) for n in lists if n]
+        heapify(h)
+        while h:
+            v, n = h[0]
+            if n.next is None:
+                heappop(h) #only change heap size when necessary
+            else:
+                heapreplace(h, (n.next.val, n.next))
+            node.next = n
+            node = node.next
+        return dummy.next
+
+
+
     # https://leetcode.com/discuss/28722/python-133ms-solution
     # LinkedList => List => LinkedList
     # attrgetter('val')
