@@ -23,13 +23,15 @@ class Solution:
 
 
         # dummy
-        dummy = ListNode(-1)
+        dummy = p = q = ListNode(-1)
         dummy.next = head
-        p = q = dummy
-        while n:
+        for _ in range(n):
+            if not q.next:
+                return 'n is out of range'
             q = q.next
-            n -= 1
         while q.next:
             p, q = p.next, q.next
-        p.next = p.next.next
-        return dummy.next
+        # p.next, p.next.next = p.next.next, None
+        # MIND THE ORDER
+        p.next.next, p.next = None, p.next.next
+        return dummy.next   # NOT head
