@@ -30,8 +30,8 @@ class Solution(object):
         #         gp(p+')', left, right-1, res)
         #     if not right:
         #         res += p, # res.append(p)
-        #     return res
-        # return gp('', n, n, res)
+        # gp('', n, n, res)
+        # return res
 
 
 
