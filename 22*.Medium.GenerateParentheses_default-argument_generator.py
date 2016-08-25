@@ -22,6 +22,17 @@ class Solution(object):
             return res
         return gp('', n, n)
 
+        # res = []
+        # def gp(p, left, right, res):
+        #     if left:
+        #         gp(p+'(', left-1, right, res)
+        #     if right > left:
+        #         gp(p+')', left, right-1, res)
+        #     if not right:
+        #         res += p, # res.append(p)
+        #     return res
+        # return gp('', n, n, res)
+
 
 
     # generator
