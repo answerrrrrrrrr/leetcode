@@ -23,6 +23,15 @@ class Solution(object):
 
     # itr
     # 44ms
+        # dummy = p = ListNode(-1)
+        # p.next = q = head
+        # while q and q.next:
+        #     p.next = q.next
+        #     q.next = q.next.next
+        #     p.next.next = q
+        #     q, p = q.next, p.next.next
+        # return dummy.next
+
         dummy = p = ListNode(0)
         dummy.next = head
         while head and head.next:
