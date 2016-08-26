@@ -14,22 +14,21 @@ class Solution(object):
     # Divide & Conquer
     # 160ms, 39.82%
         def merge(l, r):
-            dummy = p = ListNode(0)
+            dummy = p = ListNode(-1)
             while l and r:
                 if l.val < r.val:
-                    p.next = l 
-                    l = l.next
+                    p.next, l = l, l.next
                 else:
-                    p.next = r 
-                    r = r.next
+                    p.next, r = r, r.next
                 p = p.next
-            p.next = l if l else r 
+            p.next = l or r
             return dummy.next
+
         if not lists:
             return
         if len(lists) == 1:
             return lists[0]
-        m = len(lists)/2 
+        m = len(lists) / 2
         l = self.mergeKLists(lists[:m])
         r = self.mergeKLists(lists[m:])
         return merge(l, r)
@@ -39,18 +38,22 @@ class Solution(object):
     # https://leetcode.com/discuss/55662/108ms-python-solution-with-heapq-and-avoid-changing-heap-size
     # heapq
     # 108ms, 94.53%
-        from heapq import heappush, heappop, heapreplace, heapify
-        dummy = node = ListNode(0)
+        from heapq import heappush, heappop, heapify
+
         h = [(n.val, n) for n in lists if n]
         heapify(h)
+        # h = []
+        # for node in lists:
+        #     if node:
+        #         heappush(h, (node.val, node))
+
+        dummy = p = ListNode(-1)
         while h:
-            v, n = h[0]
-            if n.next is None:
-                heappop(h) #only change heap size when necessary
-            else:
-                heapreplace(h, (n.next.val, n.next))
-            node.next = n
-            node = node.next
+            val, node = heappop(h)
+            if node.next:
+                heappush(h, (node.next.val, node.next))
+            p.next = node
+            p = p.next
         return dummy.next
 
 
