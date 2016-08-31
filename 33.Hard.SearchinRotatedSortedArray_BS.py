@@ -11,7 +11,7 @@ class Solution(object):
             mid = l + (r-l)//2
             if nums[mid] == target:
                 return mid
-            if nums[l] <= nums[mid]:  # here should include "==" case
+            if nums[l] <= nums[mid]:  # here should include "==", in case of "l == mid"
                 if nums[l] <= target < nums[mid]:
                     r = mid - 1
                 else:
