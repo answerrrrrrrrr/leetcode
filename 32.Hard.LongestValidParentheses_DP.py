@@ -31,5 +31,6 @@ class Solution(object):
                 if i-dp[i] > 0:
                     dp[i] += dp[i-dp[i]]
                 left -= 1
-            maxLen = max(maxLen, dp[i])
-        return maxLen
+        #     maxLen = max(maxLen, dp[i])
+        # return maxLen
+        return max(dp) if dp else 0
