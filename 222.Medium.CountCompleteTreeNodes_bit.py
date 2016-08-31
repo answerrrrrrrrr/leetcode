@@ -44,13 +44,13 @@ class Solution(object):
                 root = root.left
         return res
 
-    # itr, improved
+    # itr + rcs
     # 140ms
         h = self.height(root)
         res = 0
         while root:
             if h-1 == self.height(root.right):
-                res += 1 << h 
+                res += 1 << h
                 root = root.right
             else:
                 res += 1 << h-1
@@ -65,11 +65,11 @@ class Solution(object):
     # rcs
     # 180ms
         def height(root):
-            return -1 if not root else 1 + height(root.left)
+            return 0 if not root else 1 + height(root.left)
         if not root:
             return 0
-        h = height(root)
-        if height(root.right) == h-1:
-            return (1 << h) + self.countNodes(root.right)
-        else:
-            return (1 << h-1) + self.countNodes(root.left)
+        h, hr = height(root), height(root.right)
+        if hr == h-1:
+            return (1 << hr) + self.countNodes(root.right)
+        else: # hr == h-2
+            return (1 << hr) + self.countNodes(root.left)
