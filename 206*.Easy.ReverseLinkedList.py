@@ -8,23 +8,29 @@ class Solution:
     # @param {ListNode} head
     # @return {ListNode}
     def reverseList(self, head):
-        # Iterative Solution
-        # last = None
-        # while head:
-        #     head.next, last, head = last, head, head.next
-        # return last
+        # itr(head)
+        new = None
+        while head:
+            head.next, new, head = new, head, head.next
+        return new
 
 
-
-
-
-        # Recursive Solution:
-        if head is None:
-            return None
-        if head.next is None:
+        # rcs(tail)
+        if not head or not head.next:
             return head
-        p = head.next
-        rHead = self.reverseList(head.next)
+        p = head.next   # become the last node after reverseList(head.next)
+        new = self.reverseList(head.next)
         head.next = None
         p.next = head
-        return rHead
+        return new
+
+
+        # rcs(head)
+        def move(h1, h2):
+            if not h1:
+                return h2
+            new_h1 = h1.next
+            h1.next = h2
+            new_h2 = h1
+            return move(new_h1, new_h2)
+        return move(head, None)
