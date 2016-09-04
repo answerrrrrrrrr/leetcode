@@ -10,16 +10,17 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         """
+    # most straightforward
     # 60ms
         dummy = p = ListNode(0)
-        dummy.next = head
+        p.next = head
         dup = None
-        while head and head.next:
-            if head.val == head.next.val:
+        while head:
+            if head.next and head.next.val == head.val:
                 dup = head.val
-                head = p.next = head.next.next
                 while head and head.val == dup:
-                    head = p.next = head.next
+                    head = head.next
+                p.next = head
             else:
                 p, head = p.next, head.next
         return dummy.next
@@ -41,7 +42,7 @@ class Solution(object):
 
 
 
-    # total in-place
+    # no dup
     # 60ms
         dummy = p = ListNode(0)
         dummy.next = head
