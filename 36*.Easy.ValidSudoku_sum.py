@@ -2,11 +2,16 @@ class Solution:
     # @param {character[][]} board
     # @return {boolean}
     def isValidSudoku(self, board):
-        l = sum(([(i, e), (e, j), (i/3, j/3, e)]
-                for i, row in enumerate(board)
-                for j, e   in enumerate(row)
-                if e != '.'), [])
-        return len(l) == len(set(l))
+        # (i, num) 表示 i 行已存在数字 num
+        # (num, j) 表示 j 列已存在数字 num
+        # (i/3, j/3, num) 表示第 (i/3, j/3) 个小方块已存在数字 num
+        # 如果有重复则违反数独规则
+        seen = []
+        for i, row in enumerate(board):
+            for j, num in enumerate(row):
+                if num != '.':
+                    seen += [(i, num), (num, j), (i / 3, j / 3, num)]
+        return len(seen) == len(set(seen))
 
 
 # https://leetcode.com/discuss/48737/1-7-lines-python-4-solutions
