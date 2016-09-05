@@ -12,9 +12,7 @@ class Solution(object):
         :type k: int
         :rtype: ListNode
         """
-        if not head or not head.next:
-            return head
-        dummy = p = ListNode(None)
+        dummy = p = ListNode(0)
         p.next = head
         for _ in range(k):
             p = p.next
@@ -22,7 +20,6 @@ class Solution(object):
                 return head
         p.next = self.reverseKGroup(p.next, k)
         while head != p:
-            head.next, head, p.next = p.next, head.next, head
-            dummy.next = head
+            dummy.next, p.next, head.next = head.next, head, p.next
+            head = dummy.next
         return dummy.next
-
