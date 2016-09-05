@@ -23,8 +23,8 @@ class Solution(object):
                 p.next = head.next
                 head = head.next
                 q = q.next
+        q.next = None   # important
         p.next = new.next
-        q.next = None
         return dummy.next
 
 
