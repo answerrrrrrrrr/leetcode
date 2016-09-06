@@ -20,18 +20,18 @@ class Solution(object):
     # https://leetcode.com/discuss/51961/python-recursive-solution-detailed-comments-operate-directly
     # O(nlogn) time
         if not head:
-            return 
+            return
         if not head.next:
             return TreeNode(head.val)
-        slow = head   # NOT head.next !!!
-        fast = head.next.next
+
+        pre, slow, fast = None, head, head
         while fast and fast.next:
-            slow, fast = slow.next, fast.next.next
-        tmp = slow.next
-        slow.next = None
-        root = TreeNode(tmp.val)
+            pre, slow, fast = slow, slow.next, fast.next.next
+
+        pre.next = None
+        root = TreeNode(slow.val)
         root.left = self.sortedListToBST(head)
-        root.right = self.sortedListToBST(tmp.next)
+        root.right = self.sortedListToBST(slow.next)
         return root
 
 
@@ -73,6 +73,27 @@ class Solution(object):
         l = self.convert(start, mid-1)
         root = TreeNode(self.node.val)
         root.left = l
-        self.node = self.node.next 
+        self.node = self.node.next
         root.right = self.convert(mid+1, end)
         return root
+
+
+
+    # bottom-up, container
+        def convert(container, start, end):
+            if start > end:
+                return
+            mid = (start + end) / 2
+            left = convert(container, start, mid-1)
+            # `head` had moved to `mid` after recursively `convert()`
+            root = TreeNode(container[0].val)
+            container[0] = container[0].next    # move `head` to `mid+1`
+            right = convert(container, mid+1, end)
+            root.left, root.right = left, right
+            return root
+
+        l, p = 0, head
+        while p:
+            l += 1
+            p = p.next
+        return convert([head], 0, l-1)
